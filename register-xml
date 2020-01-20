@@ -1,0 +1,104 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollview"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".register">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="20dp"
+            android:text="Register"
+            android:textColor="#030303"
+            android:textSize="30dp"
+            android:textStyle="bold">
+        </TextView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/regUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="UserName"
+            android:textSize="20dp">
+        </EditText>
+
+        <EditText
+            android:id="@+id/regRole"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Job Role"
+            android:textSize="20dp">
+        </EditText>
+
+        <EditText
+            android:id="@+id/regOffice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Office Location"
+            android:textSize="20dp">
+        </EditText>
+
+        <EditText
+            android:id="@+id/regEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email Address"
+            android:textSize="20dp">
+        </EditText>
+
+        <EditText
+            android:id="@+id/regPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textSize="20dp">
+        </EditText>
+
+        <EditText
+            android:id="@+id/confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:textSize="20dp">
+        </EditText>
+
+    </LinearLayout>
+
+        <Button
+            android:id="@+id/register_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:onClick="registerOnClick"
+            android:layout_gravity="center"
+            android:textSize="25dp"
+            android:background="#E4DABC53"
+            android:padding="10dp">
+        </Button>
+
+
+    </LinearLayout>
+</ScrollView>
