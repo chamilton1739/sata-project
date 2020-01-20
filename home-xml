@@ -1,0 +1,123 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollview"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".home">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome Back, User!"
+            android:textColor="#FC030303"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp"
+            android:textStyle="bold">
+
+        </TextView>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5">
+
+        <Button
+            android:id="@+id/training_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="#E4DABC53"
+            android:paddingLeft="45dp"
+            android:paddingRight="45dp"
+            android:layout_marginTop="75dp"
+            android:text="Training"
+            android:textSize="30dp"
+            android:onClick="TrainingOnClick">
+
+        </Button>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="#E4DABC53"
+            android:text="Leaderboard"
+            android:textSize="30dp"
+            android:layout_marginTop="75dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp">
+
+        </Button>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        >
+
+        <Button
+            android:id="@+id/help_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="#E4DABC53"
+            android:paddingLeft="75dp"
+            android:layout_marginTop="75dp"
+            android:paddingRight="75dp"
+            android:text="Help"
+            android:textSize="30dp">
+
+        </Button>
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        >
+    <Button
+        android:id="@+id/sign_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="#E4DABC53"
+        android:paddingLeft="45dp"
+        android:paddingRight="45dp"
+        android:text="Sign Out"
+        android:layout_marginTop="75dp"
+        android:textSize="30dp"
+        android:onClick="SignoutOnClick">
+
+    </Button>
+    </RelativeLayout>
+
+</LinearLayout>
+</ScrollView>
+
+
+
+
+
+
+
