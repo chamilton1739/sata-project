@@ -1,0 +1,134 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollview"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".rating">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.4">
+
+        <TextView
+            android:layout_width="420dp"
+            android:layout_height="250dp"
+            android:gravity="center"
+            android:layout_marginLeft="25dp"
+            android:text="Rate Me!"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#0C40F1"
+            android:textSize="50dp"
+            android:textStyle="bold">
+
+        </TextView>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.4">
+
+        <RatingBar
+            android:id="@+id/rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:outlineAmbientShadowColor="#E4DABC53"
+            >
+
+        </RatingBar>
+
+        <Button
+            android:id="@+id/submit_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="100dp"
+            android:background="#E4DABC53"
+            android:padding="10dp"
+            android:text="Submit"
+            android:textSize="25dp">
+
+        </Button>
+
+        <Button
+            android:id="@+id/rating_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="160dp"
+            android:layout_marginTop="200dp"
+            android:background="#E4DABC53"
+            android:padding="10dp"
+            android:onClick="homeOnClick"
+            android:text="Home"
+            android:textSize="25dp">
+
+        </Button>
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.7"
+        android:layout_marginTop="75dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Share your Score:"
+                android:textColor="#FD030303"
+                android:textSize="20dp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <ImageView
+                android:id="@+id/facebookImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/facebook"
+                android:layout_weight="1"
+                android:onClick="facebookOnClick">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/instagramImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/instagram"
+                android:layout_weight="1"
+                android:onClick="instagramOnClick">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/twitterImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/twitter"
+                android:layout_weight="1"
+                android:onClick="twitterOnClick">
+            </ImageView>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>
+</ScrollView>
