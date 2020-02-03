@@ -1,0 +1,23 @@
+package com.example.securityapp;
+
+public class Item {
+
+    private String statement, answer;
+
+    public Item(String statement, String answer) {
+        this.statement = statement;
+        this.answer = answer;
+    }
+
+
+    public String getStatement() {
+        return statement;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+
+
+}
