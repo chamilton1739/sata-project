@@ -1,0 +1,127 @@
+package com.example.securityapp;
+
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.media.Image;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ViewAnimator;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class industry_standards_questions extends AppCompatActivity {
+
+    DatabaseReference databaseUsers;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseAuth mAuth;
+
+    TextView stmnt;
+    ImageView image_true, image_false;
+    Button points;
+
+    Statements tfStatements;
+    int statementsLength;
+
+    ArrayList<Item> statementList;
+    int currentStatement = 0;
+    int grade = 0;
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_industry_standards_questions);
+
+
+        databaseUsers = database.getReference();
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        stmnt = (TextView) findViewById(R.id.statement_TV);
+
+        image_true = (ImageView) findViewById(R.id.trueImage);
+        image_true.setFocusable(false);
+        image_false = (ImageView) findViewById(R.id.falseImage);
+        image_false.setFocusable(false);
+
+        tfStatements = new Statements();
+        statementsLength = tfStatements.tfStatements.length;
+
+        statementList = new ArrayList<>();
+
+        points = (Button) findViewById(R.id.final_score);
+
+        for(int i = 0; i < statementsLength; i++){
+            statementList.add(new Item(tfStatements.getStatement(i), tfStatements.getAnswer(i)));
+        }
+
+        Collections.shuffle(statementList);
+
+        setStmnt(currentStatement);
+
+
+
+        image_true.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkAnswer(currentStatement)) {
+                    grade++;
+                    if (currentStatement < statementsLength - 1)
+                        setStmnt(currentStatement);
+                }
+                currentStatement++;
+                if(currentStatement >= statementsLength) { score(); }
+            }
+
+        });
+
+        image_false.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!checkAnswer(currentStatement)){
+                    grade++;
+                    if(currentStatement < statementsLength -1)
+                        setStmnt(currentStatement);
+                    }
+                currentStatement++;
+                if(currentStatement >= statementsLength) { score(); }
+                }
+
+        });
+
+    }
+
+    // show Statement
+    private void setStmnt(int number){
+        stmnt.setText(statementList.get(number).getStatement());
+    }
+
+    //check is answer is right
+    private boolean checkAnswer(int number){
+        String answer = statementList.get(number).getAnswer();
+        return answer.equals("true");
+    }
+
+    public void score(){
+        Users.currentUser.setScore(grade);
+        databaseUsers.child(Users.currentUserId).setValue(Users.currentUser);
+     Toast.makeText(this, "You scored " + grade + " points!", Toast.LENGTH_LONG).show();
+     grade = 0;
+ }
+
+}
