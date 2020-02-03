@@ -1,0 +1,107 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".industry_standards">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.38">
+
+            <TextView
+                android:layout_width="420dp"
+                android:layout_height="150dp"
+                android:gravity="center"
+                android:text="Know your standards"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="#0C40F1"
+                android:textSize="35dp"
+                android:textStyle="bold">
+
+            </TextView>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.35">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="@string/how_to_play_3"
+                android:textColor="#030303"
+                android:textSize="25dp"
+                android:layout_marginBottom="20dp">
+
+            </TextView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_weight="0.24">
+
+            <VideoView
+                android:layout_marginTop="20dp"
+                android:id="@+id/industryStandardsVid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+            </VideoView>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/play_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="#E4DABC53"
+                    android:onClick='playVidOnClick'
+                    android:text="Play Video"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="20dp" />
+                <Button
+                    android:id="@+id/next_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="#E4DABC53"
+                    android:onClick='nextOnClick'
+                    android:text="Next"
+                    android:paddingRight="40dp"
+                    android:paddingLeft="40dp"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+</ScrollView>
