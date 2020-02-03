@@ -1,0 +1,37 @@
+package com.example.securityapp;
+
+public class Statements {
+
+    public String tfStatements [] = {
+
+            "10% of U.S. companies use the Cybersecurity Framework",
+            "Prevent is an element within the framework",
+            "Respond is an element within the framework",
+            "Access control is a future priority",
+            "Risk Assessment is a current priority",
+            "Asset management is a current priority",
+            "The framework can be customised",
+            "By 2020, an estimated 70% of U.S. companies will use the framework"
+    };
+
+    public String tfAnswers [] = {
+            "false",
+            "false",
+            "true",
+            "false",
+            "true",
+            "true",
+            "true",
+            "false"
+
+    };
+
+    public String getStatement (int number) {
+        return tfStatements[number];
+    }
+
+    public String getAnswer (int number) {return tfAnswers[number]; }
+
+
+
+}
