@@ -1,0 +1,26 @@
+package com.example.securityapp;
+
+import java.lang.reflect.Array;
+
+
+public class ItemWithOptions {
+    private final String statement;
+    private final String answer;
+    private final String[] options;
+
+public ItemWithOptions(String statement, String answer, String[] options) {
+        this.statement = statement;
+        this.answer = answer;
+        this.options = options;
+    }
+    public String getStatement() {
+        return statement;
+    }
+    public String getAnswer() {
+        return answer;
+    }
+    public String[] getOptions() {
+        return options;
+    }
+}
+
