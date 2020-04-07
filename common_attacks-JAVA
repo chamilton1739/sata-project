@@ -1,0 +1,239 @@
+package com.example.securityapp;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.Tag;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class common_attacks_questions extends AppCompatActivity {
+
+    DatabaseReference databaseUsers, databaseUsername;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseAuth mAuth;
+    TextView stmnt;
+    Spinner answers;
+    ImageView forward;
+    Button points, finished;
+    attacksStatements atStatements;
+    int statementsLength;
+    ArrayList<ItemWithOptions> statementList;
+    int currentStatement = 0;
+    int grade = 0;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_common_attacks_questions);
+
+        databaseUsers = database.getReference("Scores");
+        databaseUsername = database.getReference("Users");
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        forward = (ImageView) findViewById(R.id.forward);
+        answers = (Spinner) findViewById(R.id.dropDown);
+        stmnt = (TextView) findViewById(R.id.statement_TV);
+        atStatements = new attacksStatements();
+        statementsLength = atStatements.attackStatements.length;
+        statementList = new ArrayList<>();
+        finished = (Button) findViewById(R.id.finish);
+        points = (Button) findViewById(R.id.final_score);
+
+        for (int i = 0; i < statementsLength; i++)
+        {
+            statementList.add(new ItemWithOptions(atStatements.getStatement(i), atStatements.getAnswer(i), atStatements.getOptions(i)));
+
+        }
+        Collections.shuffle(statementList);
+        setStmnt(currentStatement);
+        setOptions(currentStatement);
+
+    }
+
+    //check is answer is right
+    private boolean checkAnswer(int number) {
+        String selection = answers.getSelectedItem().toString();
+        String answer = statementList.get(number).getAnswer();
+        System.out.println(selection + " " + answer);
+        if (selection.equals(answer)) {
+            System.out.println("This is the right answer");
+            grade++;
+            System.out.println("Your grade is " + grade);
+            return answer.equals("true");
+        }
+
+        return false;
+    }
+
+
+    public void nextClicked(View view) {
+
+        checkAnswer(currentStatement);
+
+        if (currentStatement == statementsLength -1) {
+            score();
+
+            return;
+        }
+
+
+        if (currentStatement < statementsLength -1 ) {
+            currentStatement++;
+            setStmnt(currentStatement);
+            setOptions(currentStatement);
+        }
+    }
+
+    //setOptions
+    private void setOptions(int number)
+    {
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, statementList.get(number).getOptions());
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+        answers.setAdapter(spinnerArrayAdapter);
+    }
+
+    // show Statement
+    private void setStmnt(int number) {
+        stmnt.setText(statementList.get(number).getStatement());
+    }
+
+
+
+
+
+    public void score() {
+
+
+        String id = mAuth.getCurrentUser().getUid();
+        DatabaseReference score = databaseUsers.child(id).child("Points");
+        DatabaseReference order = databaseUsers.child(id).child("Order");
+        DatabaseReference set_username = databaseUsers.child(id).child("Username");
+        final DatabaseReference get_user_name = databaseUsername.child(id).child("username");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        final int pointsEarned = grade;
+
+
+        order.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
+                mutableData.setValue((mutableData.getValue() == null ? 0 : mutableData.getValue(Integer.class)) -pointsEarned);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
+
+            }
+        });
+
+
+        score.runTransaction(new Transaction.Handler() {
+                                 @Override
+                                 public Transaction.Result doTransaction(MutableData mutableData) {
+                                     System.out.println("You scored: " + pointsEarned);
+                                     System.out.println("The current score is: " + mutableData.getValue(Integer.class));
+                                     mutableData.setValue((mutableData.getValue() == null ? 0 : mutableData.getValue(Integer.class)) + pointsEarned);
+                                     System.out.println("The new score is: " + mutableData.getValue(Integer.class));
+                                     return Transaction.success(mutableData);
+                                 }
+
+                                 @Override
+                                 public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
+
+                                 }
+                             }
+        );
+
+
+        get_user_name.runTransaction(new Transaction.Handler() {
+            @NonNull
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
+                String name = mutableData.getValue(String.class);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
+                String username = dataSnapshot.getValue().toString();
+                System.out.println("USERNAME: " + username);
+
+
+            }
+
+        });
+
+        set_username.runTransaction(new Transaction.Handler() {
+            @NonNull
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
+
+                mutableData.setValue(mAuth.getCurrentUser().getEmail());
+                return Transaction.success(mutableData);
+
+            }
+
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, boolean b, @Nullable DataSnapshot dataSnapshot) {
+
+            }
+        });
+
+
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("You scored " + grade +" points!");
+        builder1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent_finished = new Intent(common_attacks_questions.this, industry_standards_rating_screen.class);
+                startActivity(intent_finished);
+                finish();
+            }
+        });
+        AlertDialog alert = builder1.create();
+        alert.show();
+        grade = 0;
+    }
+    
+
+    public void FinishedClick (View view)
+    {
+        score();
+        Intent intent_finished = new Intent(common_attacks_questions.this, industry_standards_rating_screen.class);
+        startActivity(intent_finished);
+        finish();
+    }
+
+
+}
