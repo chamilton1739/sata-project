@@ -1,0 +1,78 @@
+package com.example.securityapp;
+
+public class attacksStatements {
+
+    public String attackStatements [] = {
+
+            "More IoT devices lead to increased _____ threats",
+            "___ is a type of web attack",
+            "Being blackmailed until you pay an attacker is known as _____",
+            "As an additional safeguard companies are using ____ as well as password",
+            "_____ are the biggest threat to a company’s data",
+            "Companies should use _____ to secure their webpages",
+    };
+
+    public String attackAnswers [] = {
+            "DOS",
+            "SQL Injection",
+            "Ransomware",
+            "Biometrics",
+            "Employees",
+            "HTTPS"
+    };
+
+    public String array1 [] = {
+            "DOS",
+            "Phishing",
+            "Man in the Middle"
+    };
+    public String array2 [] = {
+            "Brute Force",
+            "Social Engineering",
+            "SQL Injection"
+    };
+    public String array3 [] = {
+            "Spyware",
+            "Adware",
+            "Ransomware"
+    };
+    public String array4 [] = {
+            "Username",
+            "Biometrics",
+            "PIN Numbers"
+    };
+    public String array5 [] = {
+            "Employees",
+            "Customers",
+            "Suppliers"
+    };
+    public String array6 [] = {
+            "HTTPS",
+            "HTML5",
+            "CSS"
+    };
+
+    public String[][] attackOptions ={
+            array1,
+            array2,
+            array3,
+            array4,
+            array5,
+            array6
+
+
+    };
+
+    public String getStatement (int number) {
+        return attackStatements[number];
+    }
+
+    public String getAnswer (int number) {return attackAnswers[number]; }
+
+    public String [] getOptions (int number) {return  attackOptions [number]; }
+
+
+
+}
+
+
