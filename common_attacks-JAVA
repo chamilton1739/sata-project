@@ -1,0 +1,80 @@
+package com.example.securityapp;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.media.MediaPlayer;
+import android.widget.Button;
+import android.widget.MediaController;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.VideoView;
+
+public class common_attacks extends AppCompatActivity {
+
+    VideoView vid;
+    Button play;
+    Button next;
+    MediaController mediaControls;
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_common_attacks);
+
+        vid = (VideoView) findViewById(R.id.attacksVid);
+        play = (Button) findViewById(R.id.play_button);
+        next = (Button) findViewById(R.id.next_button);
+
+
+
+    }
+
+    public void playVidOnClick(View view)
+    {
+        final MediaController mediaController = new MediaController(this);
+
+        vid.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setVolume(0, 100);
+            }
+
+        });
+
+
+        play.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+
+                VideoView mVideoView = (VideoView)findViewById(R.id.attacksVid);
+                String uriPath = "android.resource://com.example.securityapp/"+R.raw.common_attacks;
+                Uri uri = Uri.parse(uriPath);
+
+                mediaController.setAnchorView(vid);
+
+                vid.setVideoURI(uri);
+                vid.setMediaController(mediaController);
+                vid.start();
+
+
+            }});
+    }
+
+
+    public void nextOnClick (View view)
+    {
+        Intent intent_reg = new Intent(common_attacks.this, common_attacks_questions.class);
+        startActivity(intent_reg);
+        finish();
+    }
+
+
+}
+
+
+
